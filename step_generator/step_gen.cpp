@@ -16,7 +16,7 @@ using namespace std;
 
 int main(int argc, char * argv[]) {
 
-    const int N = 5;
+    const int N = 4;
 
     int lcm = 1;
     for (int i = 2; i < N + 1; i++) {

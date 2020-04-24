@@ -10,7 +10,7 @@ vector<int> input_periods;
 
 void populateHash() {
     ifstream file;
-    file.open("raw_hash.txt");
+    file.open("fast_calc_constants/raw_hash.txt");
     
     while (!file.eof()) {
         int a, b, c, d;
@@ -21,16 +21,12 @@ void populateHash() {
     }
 
     ifstream file2;
-    file2.open("input_periods.txt");
+    file2.open("fast_calc_constants/input_periods.txt");
     while (!file2.eof()) {
         int a;
         file2 >> a;
         input_periods.push_back(a);
     }
-}
-
-void print_pair(pair<int, int> p) {
-    cout << p.first << ", " << p.second << endl;
 }
 
 int goHash(Factorization& d) {
