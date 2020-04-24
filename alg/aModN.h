@@ -169,7 +169,7 @@ int goModN(Factorization& d) {
     }
 
     // this breaks it
-    return totalProducts;
+    // return totalProducts;
 
     for (int i = 0; i < f; i++) {
         countUnique += Ai[i].count();

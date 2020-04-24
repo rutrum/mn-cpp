@@ -14,7 +14,7 @@ using namespace std;
 
 int main(int argc, char * argv[]) {
 
-    int start = 100000000, end = start+50;
+    int start = 0, end = 1000;
     long Mn = 0;
     const int N = 5;
 
@@ -34,11 +34,7 @@ int main(int argc, char * argv[]) {
         lcm = boost::math::lcm(lcm, i);
     }
 
-    cout << lcm << endl;
-
     sieve.init(max(end, lcm));
-    
-    sieve.init(end);
 
     initNFree(N);
 

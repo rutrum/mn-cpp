@@ -10,7 +10,7 @@ vector<int> input_periods;
 
 void populateHash() {
     ifstream file;
-    file.open("fast_calc_constants/raw_hash.txt");
+    file.open("constants/raw_hash.txt");
     
     while (!file.eof()) {
         int a, b, c, d;
@@ -21,7 +21,7 @@ void populateHash() {
     }
 
     ifstream file2;
-    file2.open("fast_calc_constants/input_periods.txt");
+    file2.open("constants/input_periods.txt");
     while (!file2.eof()) {
         int a;
         file2 >> a;
