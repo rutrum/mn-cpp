@@ -1,5 +1,15 @@
 # Calculating M(n)
 
+## The Parallel Run
+
+Among the many files here, only some of them directly contributed to the run that found M(2^30).  See `test/PSegNFree.cpp`.  It leverages `alg/a5Free.h`, calculating delta(n) working modulo 60.  In addition, it uses `util/freeFunc.h` to help initialize the data structures used working modulo 60.
+
+## Arbitrary Modulus
+
+Each algorithm that works under a modulus uses a few constant arrays to look up how to traverse through the multiplication table.  Take for example, determining table values remainder 0 modulo 6.  For rows that are a multiple of 6, every cell must be checked.  In this case, the "row step" is 1.  For rows that are 1 more than a multiple of 6, there is a multiple of 6 every 6 colums, so the "row step" is 6.  When examining table values remainder 1 modulo 6, some columns will never contain such values.  These rows are skipped, so the "column step" might be 2.  The row and column steps can change dramatically where you are in the table, so all of these steps are stored in large arrays.  A look up after every product is calculated to determine which product to calculate next.
+
+The file that generates these steps is `step_generator/step_gen.cpp`.  The steps are written to a file and can then be inserted into the program as a constant multidimensional array.  Alternatively, the `aNFree.h` algorithm generates these step arrays in the heap at the start of runtime.
+
 ## Summary of Files
 
 * `alg` Algorithms used to calculate delta(n).
@@ -22,7 +32,7 @@
     * `fastFact.h` Segmented sieve that creates factorization structs across an interval.
     * `freeFunc.h` Functions used in the initialization of `aXFree.h` algorithms.
     * `shiftFunc.h` Functions used in `aShift.h` and `aFill.h`.
-* `test` Performs the actual M(n) calculation leveraging a variety of different algorithms described above.  For example, `tFast12Free.cpp` uses the `aFast.h`, `a1Free.h`, and `a2Free.h` files.
+* `test` Performs the actual m(n) calculation leveraging a variety of different algorithms described above.  For example, `tFast12Free.cpp` uses the `aFast.h`, `a1Free.h`, and `a2Free.h` files.
     * `PSegNFree.cpp` Performed the M(n) calculation in parallel to get M(2^30).
 * `sh` Bash scripts that validate the test the files in `test` to ensure algorithms provide the correct delta(n) and M(n) calculations.
 * `constants` Data used to initialize the hashmap in `aHash.h`
