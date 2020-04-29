@@ -14,7 +14,7 @@ using namespace std;
 
 int main(int argc, char * argv[]) {
 
-    int start = 0, end = 1000;
+    int start = 1, end = 1000;
     long Mn = 0;
     const int N = 5;
 
