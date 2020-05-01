@@ -1,4 +1,5 @@
-test_dir := "./test/"
-
 test TEST:
-    echo {{ TEST }}
+    g++ {{ TEST }} -o bin/test
+    bin/test
+    @echo "Success!"
+    

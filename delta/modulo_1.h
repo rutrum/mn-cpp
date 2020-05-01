@@ -1,4 +1,4 @@
-int delta_modulo1(Factors f) {
+int delta_modulo_1(Factors f) {
 
     // prime check...may remove, but will segfault on primes
     if (f.is_prime()) {
