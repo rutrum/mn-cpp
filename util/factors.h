@@ -20,11 +20,36 @@ public:
         }
     }
 
+    Factors(int n, vector<pair<int,int>> pairs) {
+        this->n = n;
+        this->pairs = pairs;
+    }
+
+    static Factors all_pairs(int n) {
+        auto pairs = vector<pair<int, int>>();
+        pairs.push_back(pair<int, int>(1, n));
+        for (int i = 2; i <= n; i++) {
+            if (n % i == 0) {
+                pairs.push_back(pair<int, int>(i, n / i));
+            }
+        }
+        return Factors(n, pairs);
+    }
+
     void print() {
         for (int i = 0; i < pairs.size(); i++) {
             pair<int, int> p = pairs[i];
             cout << p.first << ", " << p.second << endl;
         }
+    }
+
+    Factors stretch_lattice(int p) {
+        auto new_pairs = vector<pair<int, int>>();
+        for (int i = 0; i < this->pairs.size(); i++) {
+            auto new_pair = pair<int,int>(this->pairs[i].first * p, this->pairs[i].second);
+            new_pairs.push_back(new_pair);
+        }
+        return Factors(n*p, new_pairs);
     }
 
     bool is_prime() {

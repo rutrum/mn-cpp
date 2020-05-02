@@ -14,7 +14,7 @@ int main() {
     ifstream in;
     in.open("results/delta_100000.txt");
 
-    int w = 30;
+    int w = 120;
     auto classes = classify_coords(w);
 
     for (int n = 1; n <= 30000; n++) {
