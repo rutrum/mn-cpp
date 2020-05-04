@@ -31,6 +31,7 @@ int main(int argc, char * argv[]) {
     for (int i = start; i <= end; i++) {
         Factorization d(i);
         int delta = go1Free(d);
+        cout << delta << endl;
         Mn += i - delta;
     }
     

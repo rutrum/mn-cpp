@@ -46,7 +46,7 @@ public:
     Factors stretch_lattice(int p) {
         auto new_pairs = vector<pair<int, int>>();
         for (int i = 0; i < this->pairs.size(); i++) {
-            auto new_pair = pair<int,int>(this->pairs[i].first * p, this->pairs[i].second);
+            auto new_pair = pair<int,int>(this->pairs[i].first, this->pairs[i].second * p);
             new_pairs.push_back(new_pair);
         }
         return Factors(n*p, new_pairs);

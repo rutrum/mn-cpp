@@ -66,7 +66,7 @@ int delta_modulo_w(Factors f, int w, vector<vector<pair<int,int>>> classes) {
                         p < f.col_bound_on_pair(t) * r - lower_bounds[m]; 
                         p += w * r
                     ) {
-                        int i = p / w;  // index after translation and scaling
+                        int i = p / w;  // index after scaling
                         visited[i] = true;
                     }
                 */
