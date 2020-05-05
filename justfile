@@ -9,6 +9,11 @@ bench BENCH START END:
     g++ bench/{{ BENCH }}.cpp -o bin/bench -O3
     /bin/time -p bin/bench {{ START }} {{ END }}
 
+alias bs := bench-sieve
+bench-sieve SIEVE SIZE:
+    g++ bench/sieve/{{ SIEVE }}.cpp -o bin/bench-sieve -O3
+    /bin/time -p bin/bench-sieve {{ SIZE }}
+
 alias m := gen-multiplier
 gen-multiplier MULTIPLIER:
     g++ multipliers/shift.cpp -o bin/multiplier -O3

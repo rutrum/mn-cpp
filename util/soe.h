@@ -12,7 +12,7 @@ public:
     }
 
     uint64_t count() {
-        return primes.size() - primes.count() - 2;
+        return primes.size() - primes.count();
     }
 
     void print() {
@@ -37,6 +37,8 @@ public:
 private:
 
     void init_sieve() {
+        primes[0] = 1; // 1 is true but 0 is not, for our case
+
         // multiples of 2
         for (uint64_t j = 4; j < primes.size(); j += 2) {
             primes[j] = 1;
