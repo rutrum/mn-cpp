@@ -6,9 +6,9 @@ class SegmentedSieve {
 
 public:
 
-    SegmentedSieve(uint64_t n) {
+    SegmentedSieve(uint64_t n, uint64_t segment_size) {
         primes.resize(n + 1);
-        init_sieve();
+        init_sieve(segment_size);
     }
 
     uint64_t count() {
@@ -36,16 +36,11 @@ public:
 
 private:
 
-    void init_sieve() {
+    void init_sieve(uint64_t segment_size) {
         primes[1] = 1;
         
         uint64_t sqrtn = sqrt(primes.size() - 1); // Remember the size is one more than max
         //Sieve s = Sieve(sqrtn);
-
-        int segment_size = sqrtn;
-        if (segment_size > 65536) {
-            segment_size = 65536; // 2^16
-        }
 
         // Start is exclusive, end is inclusive
         for (uint64_t start = 0; start + 1 < primes.size(); start += segment_size) {
@@ -54,7 +49,7 @@ private:
             //cout << start << " " << end << endl;
 
             //for (uint64_t p = 2; p != 0 && p * p < end; p = s.next_prime(p)) {
-            for (uint64_t p = 2; p <= sqrtn; p++) {
+            for (uint64_t p = 2; p * p <= end; p++) {
 
                 uint64_t s = start + p - (start % p);
                 if (s < p*p) s = p*p; // Edge case when speve pncludes numbers less than sqrt(n)

@@ -5,7 +5,7 @@
 
 #include "../util/factors.h"
 #include "../util/soe.h"
-#include "../delta/modulo_1.h"
+#include "../delta/segmented_modulo_1.h"
 #include "./help.h"
 
 using namespace std;
@@ -15,7 +15,7 @@ int main() {
     in.open("results/delta_100000.txt");
     for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
-        int calculated = delta_modulo_1(f);
+        int calculated = delta_segmented_modulo_1(f);
 
         int expected;
         in >> expected;

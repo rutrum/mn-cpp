@@ -64,6 +64,25 @@ public:
         return pairs[t].second;
     }
 
+    // Maybe there's a better way, maybe there isn't
+    int highest_prime() {
+        for (int t = pairs.size() - 1; t >= 0; t--) {
+            int p = pairs[t].second;
+            bool is_prime = true;
+            for (int i = 2; i * i <= p; i++) {
+                if (p % i == 0) {
+                    is_prime = false;
+                    break;
+                }
+            }
+            if (is_prime) {
+                return p;
+            }
+        }
+        // unreachable
+        return 1;
+    }
+
     // One more than the highest product within the shape
     int product_bound() {
         pair<int, int> p = pairs.back();

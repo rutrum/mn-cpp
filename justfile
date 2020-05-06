@@ -14,6 +14,12 @@ bench-sieve SIEVE SIZE:
     g++ bench/sieve/{{ SIEVE }}.cpp -o bin/bench-sieve -O3
     /bin/time -p bin/bench-sieve {{ SIZE }}
 
+alias bss := bench-segmented-sieve
+bench-segmented-sieve SIZE SEGMENT:
+    g++ bench/sieve/segmented_sieve.cpp -o bin/bench-sieve -O3
+    # /bin/time -p bin/bench-sieve {{ SIZE }} {{ SEGMENT }}
+    sudo perf stat -d bin/bench-sieve {{ SIZE }} {{ SEGMENT }}
+
 alias m := gen-multiplier
 gen-multiplier MULTIPLIER:
     g++ multipliers/shift.cpp -o bin/multiplier -O3

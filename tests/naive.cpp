@@ -1,11 +1,10 @@
 #include <iostream>
-#include <vector>
 #include <boost/dynamic_bitset.hpp>
 #include <fstream>
 
 #include "../util/factors.h"
 #include "../util/soe.h"
-#include "../delta/modulo_1.h"
+#include "../delta/naive.h"
 #include "./help.h"
 
 using namespace std;
@@ -15,7 +14,7 @@ int main() {
     in.open("results/delta_100000.txt");
     for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
-        int calculated = delta_modulo_1(f);
+        int calculated = delta_naive(f);
 
         int expected;
         in >> expected;

@@ -1,21 +1,30 @@
 #include <iostream>
 #include <vector>
 #include <boost/dynamic_bitset.hpp>
+#include <map>
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
 #include "../delta/modulo_1.h"
+#include "../delta/fast.h"
 #include "./help.h"
 
 using namespace std;
 
 int main() {
+
+    // Initialize fast evaluation hashmap
+    FastRules fast = FastRules(); 
+
     ifstream in;
     in.open("results/delta_100000.txt");
     for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
-        int calculated = delta_modulo_1(f);
+
+        int calculated = fast.eval(f);
+        if (calculated == -1) {
+            calculated = delta_modulo_1(f);
+        }
 
         int expected;
         in >> expected;

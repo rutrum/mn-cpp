@@ -17,7 +17,7 @@ int main() {
     int w = 120;
     auto classes = classify_coords(w);
 
-    for (int n = 1; n <= 30000; n++) {
+    for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
         int calculated = delta_modulo_w(f, w, classes);
 
