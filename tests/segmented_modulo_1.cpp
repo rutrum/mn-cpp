@@ -15,7 +15,7 @@ int main() {
     in.open("results/delta_100000.txt");
     for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
-        int calculated = delta_segmented_modulo_1(f);
+        int calculated = delta_segmented_modulo_1(f, 1000);
 
         int expected;
         in >> expected;
