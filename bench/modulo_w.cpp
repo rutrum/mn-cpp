@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     int start = strtol(argv[1], NULL, 10);
     int end = strtol(argv[2], NULL, 10);
 
-    int w = 60;
+    int w = 120;
     auto classes = classify_coords(w);
 
     for (int n = start; n <= end; n++) {

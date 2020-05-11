@@ -7,7 +7,15 @@ void visit_between_shapes(uint32_t &hamming, boost::dynamic_bitset<> &visited, F
             t++;
         }
 
-        // Slower, uint32_tuitive way:
+        uint32_t p_end = r * next.col_bound_on_pair(t);
+
+        uint32_t row_squared_bound = r * r;
+        uint32_t inner_shape_bound = r * last.col_bound_on_pair(t);
+
+        uint32_t p_start = inner_shape_bound;
+        if (p_start < row_squared_bound && row_squared_bound < p_end) p_start = row_squared_bound;
+
+        // Slower, intuitive way:
         /*
             for (uint32_t c = last.col_bound_on_pair(t); c < next.col_bound_on_pair(t); c++) {
                 uint32_t p = c * r;
@@ -18,7 +26,7 @@ void visit_between_shapes(uint32_t &hamming, boost::dynamic_bitset<> &visited, F
             }
         */
         // Faster way:
-        for (uint32_t p = r * last.col_bound_on_pair(t); p < r * next.col_bound_on_pair(t); p += r) {
+        for (uint32_t p = p_start; p < p_end; p += r) {
             if (!visited[p]) {
                 visited[p] = true;
                 hamming++;

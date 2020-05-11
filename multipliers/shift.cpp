@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
     // Write the multipliers to file
     ofstream out;
-    out.open("multipliers/data/deltas_max" + to_string(max) + "_m" + to_string(m) + ".txt");
+    out.open("results/multipliers/deltas_max" + to_string(max) + "_m" + to_string(m) + ".txt");
     for (uint64_t n = 1; n <= max / m; n++) {
         if (deltas[n] != -1) {
             out << n * m << " " << deltas[n] << endl;

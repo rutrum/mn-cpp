@@ -93,6 +93,11 @@ public:
     int row_bound() {
         return pairs.back().first;
     }
+    
+    // Returns the number of divisor pairs
+    int num_pairs() {
+        return pairs.size();
+    }
 
     // Populates an array with the max of each row within
     // the shape formed by the factorization.

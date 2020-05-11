@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <iostream>
-#include <vector>
 #include <boost/dynamic_bitset.hpp>
 
 #include "../util/factors.h"
