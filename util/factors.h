@@ -43,6 +43,89 @@ public:
         }
     }
 
+    // Returns factors(n*p) for prime p exploiting the pairs already found for n
+    Factors scale(int p) {
+        /*
+        
+        auto merged = vector<pair<int, int>>();
+
+        if (p < n) {
+            auto to_add = pair<int,int>(1, n * p);
+            int l = 0, r = 0;
+
+            while (to_add.first <= to_add.second) {
+                merged.push_back(to_add);
+
+                if (this->pairs[l].first < this->pairs[r].first * p) {
+                    auto pr = this->pairs[l];
+                    to_add = pair<int,int>(pr.first, pr.second * p);
+                    l++;
+
+                } else if (this->pairs[l].first > this->pairs[r].first * p) {
+                    auto pr = this->pairs[r];
+                    to_add = pair<int,int>(pr.first * p, pr.second);
+                    r++;
+
+                } else { // equality
+                    auto pr = this->pairs[l];
+                    to_add = pair<int,int>(pr.first * p, pr.second);
+                    l++;
+                    r++;
+                }
+            }
+            cout << "didn't add " << to_add.first << " " << to_add.second << endl;
+        } else {
+            for (int i = 0; i < this->pairs.size(); i++) {
+                auto cur = this->pairs[i];
+                auto pr = pair<int, int>(cur.first, cur.second * p);
+                merged.push_back(pr);
+            }
+        }
+
+        return Factors(n*p, merged);
+        */
+        auto merged = vector<pair<int, int>>();
+        merged.reserve(this->num_pairs() * 2);
+        if (p <= n) {
+
+            auto to_add = pair<int,int>(1, p);
+            int l = 0, r = 1;
+
+            // If first == second, then its the last pair, so we have to break
+            while (to_add.first < to_add.second) { 
+
+                merged.push_back(to_add);
+
+                if (this->pairs[l].first * p < this->pairs[r].first) {
+                    auto pr = this->pairs[l];
+                    to_add = pair<int,int>(pr.first * p, pr.second);
+                    l++;
+                } else if (this->pairs[l].first * p > this->pairs[r].first) {
+                    auto pr = this->pairs[r];
+                    to_add = pair<int,int>(pr.first, pr.second * p);
+                    r++;
+                } else {
+                    auto pr = this->pairs[l];
+                    to_add = pair<int,int>(pr.first * p, pr.second);
+                    l++;
+                    r++;
+                }
+            }
+            if (to_add.first == to_add.second) { // Handles when m*p = a^2
+                merged.push_back(to_add);
+            }
+        } else {
+            for (int i = 0; i < this->pairs.size(); i++) {
+                auto cur = this->pairs[i];
+                auto pr = pair<int, int>(cur.first, cur.second * p);
+                merged.push_back(pr);
+            }
+        }
+
+        //merged.pop_back();
+        return Factors(n*p, merged);
+    }
+
     Factors stretch_lattice(int p) {
         auto new_pairs = vector<pair<int, int>>();
         for (int i = 0; i < this->pairs.size(); i++) {

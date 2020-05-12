@@ -6,8 +6,6 @@
 #include "../util/factors.h"
 #include "../util/soe.h"
 #include "../delta/naive.h"
-#include "../delta/modulo_1.h"
-#include "../delta/modulo_w.h"
 #include "../deltas/shift.h"
 #include "./help.h"
 
@@ -37,7 +35,7 @@ int main() {
 
     cout << "Multipliers" << endl;
     // Use multipliers to find classes of delta values
-    for (int m = 2; m <= 1000; m++) {
+    for (int m = 20; m <= 1000; m++) {
         uint32_t m_deltas[max / m + 1];
         for (auto i = 0; i <= max / m; i++) {
             m_deltas[i] = -1;

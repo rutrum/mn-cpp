@@ -15,7 +15,9 @@ int main() {
     for (int n = 1; n <= 100000; n++) {
         Factors f = Factors(n);
         //cout << n << endl;
-        int calculated = delta_segmented_naive(f, 100);
+        auto visited = boost::dynamic_bitset<>(f.product_bound());
+        int calculated = delta_segmented_naive_save(f, 100, visited);
+        calculated = visited.count();
 
         int expected;
         in >> expected;
