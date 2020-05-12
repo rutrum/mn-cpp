@@ -5,7 +5,7 @@
 #include <string>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
+#include "../util/sieve/sieve.h"
 #include "../delta/segmented_naive.h"
 #include "../deltas/dynamic_shift.h"
 
