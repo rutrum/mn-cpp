@@ -4,7 +4,6 @@
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
 #include "../delta/modulo_1.h"
 #include "./help.h"
 

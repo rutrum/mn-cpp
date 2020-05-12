@@ -3,7 +3,6 @@
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
 #include "../delta/segmented_naive.h"
 #include "./help.h"
 

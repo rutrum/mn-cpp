@@ -4,7 +4,7 @@
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
+#include "../util/sieve/sieve.h"
 #include "../delta/naive.h"
 #include "../deltas/shift.h"
 #include "./help.h"

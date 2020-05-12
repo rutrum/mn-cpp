@@ -4,7 +4,6 @@
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
 #include "../util/start_column.h"
 #include "../delta/segmented_modulo_2.h"
 #include "./help.h"

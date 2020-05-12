@@ -35,3 +35,20 @@ par-multiplier NP:
 
 clean:
     trash bin/*
+
+alias r := run
+
+# Compiles and runs a cpp file
+run PATH:
+    g++ {{ PATH }} -o bin/run -O3
+    bin/run
+
+# Compiles every benchmark and test
+compile:
+    #!/bin/bash
+    for filename in tests/*.cpp; do
+       g++ $filename -c -o /tmp/a.out
+    done
+    for filename in bench/*.cpp; do
+       g++ $filename -c -o /tmp/a.out
+    done

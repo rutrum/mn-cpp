@@ -2,7 +2,7 @@
 #include <vector>
 #include <boost/dynamic_bitset.hpp>
 
-#include "../util/soe.h"
+#include "../util/sieve/sieve.h"
 
 using namespace std;
 

@@ -2,9 +2,7 @@
 #include <vector>
 #include <boost/dynamic_bitset.hpp>
 
-#include "../util/soe.h"
-#include "../util/segmented_soe.h"
-#include "../util/wheel_sieve_mod_2.h"
+#include "../util/sieve/wheel_mod_2.h"
 
 using namespace std;
 

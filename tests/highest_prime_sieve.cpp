@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../util/factors.h"
-#include "../util/highest_prime_sieve.h"
+#include "../util/sieve/highest_prime.h"
 
 using namespace std;
 

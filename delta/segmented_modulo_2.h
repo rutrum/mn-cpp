@@ -1,4 +1,4 @@
-int delta_modulo_2(Factors f) {
+int delta_segmented_modulo_2(Factors f, uint32_t segment_size) {
     int total_visited = 0;
     int* row_maxes = f.row_maxes(2);
 

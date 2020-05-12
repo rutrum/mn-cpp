@@ -3,8 +3,7 @@
 #include <boost/dynamic_bitset.hpp>
 #include <math.h>
 
-#include "../util/soe.h"
-#include "../util/segmented_sieve.h"
+#include "../util/sieve/segmented.h"
 
 using namespace std;
 
