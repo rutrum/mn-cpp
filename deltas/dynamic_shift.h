@@ -1,6 +1,6 @@
 // Algorithm 3
 // But improved!
-void visit_between_shapes_dynamic(uint32_t &hamming, boost::dynamic_bitset<> &visited, Factors last, Factors next) {
+void visit_between_shapes_dynamic(uint32_t &hamming, boost::dynamic_bitset<> &visited, const Factors& last, const Factors& next) {
     // t walks through last
     // s walks through next
     for (uint32_t r = 1, t = 1, s = 1; r < next.row_bound(); r++) {

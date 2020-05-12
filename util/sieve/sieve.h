@@ -25,6 +25,21 @@ public:
         return primes[n] == 0;
     }
 
+    // Returns the last prime in the sieve.  0 if no such prime;
+    int last_prime() {
+        for (uint64_t i = primes.size() - 1; i >= 0; i--) {
+            if (primes[i] - 0) { return i; }
+        }
+        return 0;
+    }
+
+    int prev_prime(uint64_t n) {
+        for (uint64_t i = n - 1; i >= 0; i--) {
+            if (primes[i] == 0) { return i; }
+        }
+        return 0;
+    }
+
     // Returns the next prime greater than n
     // returns 0 if next prime isn't within sieve.
     int next_prime(uint64_t n) {

@@ -45,45 +45,6 @@ public:
 
     // Returns factors(n*p) for prime p exploiting the pairs already found for n
     Factors scale(int p) {
-        /*
-        
-        auto merged = vector<pair<int, int>>();
-
-        if (p < n) {
-            auto to_add = pair<int,int>(1, n * p);
-            int l = 0, r = 0;
-
-            while (to_add.first <= to_add.second) {
-                merged.push_back(to_add);
-
-                if (this->pairs[l].first < this->pairs[r].first * p) {
-                    auto pr = this->pairs[l];
-                    to_add = pair<int,int>(pr.first, pr.second * p);
-                    l++;
-
-                } else if (this->pairs[l].first > this->pairs[r].first * p) {
-                    auto pr = this->pairs[r];
-                    to_add = pair<int,int>(pr.first * p, pr.second);
-                    r++;
-
-                } else { // equality
-                    auto pr = this->pairs[l];
-                    to_add = pair<int,int>(pr.first * p, pr.second);
-                    l++;
-                    r++;
-                }
-            }
-            cout << "didn't add " << to_add.first << " " << to_add.second << endl;
-        } else {
-            for (int i = 0; i < this->pairs.size(); i++) {
-                auto cur = this->pairs[i];
-                auto pr = pair<int, int>(cur.first, cur.second * p);
-                merged.push_back(pr);
-            }
-        }
-
-        return Factors(n*p, merged);
-        */
         auto merged = vector<pair<int, int>>();
         merged.reserve(this->num_pairs() * 2);
         if (p <= n) {
@@ -139,11 +100,11 @@ public:
         return pairs.size() == 1;
     }
 
-    int row_bound_on_pair(int t) {
+    int row_bound_on_pair(int t) const {
         return pairs[t].first;
     }
 
-    int col_bound_on_pair(int t) {
+    int col_bound_on_pair(int t) const {
         return pairs[t].second;
     }
 
@@ -167,18 +128,18 @@ public:
     }
 
     // One more than the highest product within the shape
-    int product_bound() {
+    int product_bound() const {
         pair<int, int> p = pairs.back();
         return (p.first - 1) * (p.second - 1) + 1;
     }
 
     // The bound on the number of rows in the shape
-    int row_bound() {
+    int row_bound() const {
         return pairs.back().first;
     }
     
     // Returns the number of divisor pairs
-    int num_pairs() {
+    int num_pairs() const {
         return pairs.size();
     }
 
