@@ -1,20 +1,20 @@
-int delta_modulo_2(Factors f) {
-    int total_visited = 0;
-    int* row_maxes = f.row_maxes(2);
+uint32_t delta_modulo_2(Factors f) {
+    uint32_t total_visited = 0;
+    uint32_t* row_maxes = f.row_maxes(2);
 
     // EVENS
 
     // Lower bound for evens can come from either the first row,
     // or the second row.  Pick the better one.
-    int evens_max = max(row_maxes[1], row_maxes[2]);
-    int evens_range = f.product_bound() - evens_max;
-    int evens_size = evens_range / 2 + 1; // Store half the range (no odds)
+    uint32_t evens_max = max(row_maxes[1], row_maxes[2]);
+    uint32_t evens_range = f.product_bound() - evens_max;
+    uint32_t evens_size = evens_range / 2 + 1; // Store half the range (no odds)
     boost::dynamic_bitset<> evens_visited(evens_size);
 
     total_visited += evens_max / 2; // Free visits!
 
     // Start from the third row, everything is known about first two
-    for (int r = 3, t = 1; r < f.row_bound(); r++) {
+    for (uint32_t r = 3, t = 1; r < f.row_bound(); r++) {
 
         // If row has maxed out pair's shape, go to next pair
         while (r >= f.row_bound_on_pair(t)) {

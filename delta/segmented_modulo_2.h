@@ -1,20 +1,20 @@
-int delta_segmented_modulo_2(Factors f, uint32_t segment_size) {
-    int total_visited = 0;
-    int* row_maxes = f.row_maxes(2);
+uint32_t delta_segmented_modulo_2(Factors f, uint32_t segment_size) {
+    uint32_t total_visited = 0;
+    uint32_t* row_maxes = f.row_maxes(2);
 
     // EVENS
 
     // Lower bound for evens can come from either the first row,
     // or the second row.  Pick the better one.
-    int evens_lb = max(row_maxes[1], row_maxes[2]);
-    int evens_range = f.product_bound() - evens_lb;
-    int evens_size = evens_range / 2 + 1; // Store half the range (no odds)
+    uint32_t evens_lb = max(row_maxes[1], row_maxes[2]);
+    uint32_t evens_range = f.product_bound() - evens_lb;
+    uint32_t evens_size = evens_range / 2 + 1; // Store half the range (no odds)
     boost::dynamic_bitset<> evens_visited(evens_size);
 
     total_visited += evens_lb / 2; // Free visits!
 
     // Start from the third row, everything is known about first two
-    for (int r = 3, t = 1; r < f.row_bound(); r++) {
+    for (uint32_t r = 3, t = 1; r < f.row_bound(); r++) {
 
         // If row has maxed out pair's shape, go to next pair
         while (r >= f.row_bound_on_pair(t)) {
@@ -22,10 +22,10 @@ int delta_segmented_modulo_2(Factors f, uint32_t segment_size) {
         }
 
         // From /util/start_column.h
-        int start = start_column(evens_lb, r, 0, 2);
+        uint32_t start = start_column(evens_lb, r, 0, 2);
 
         // Can we skip columns?
-        int step = 1;
+        uint32_t step = 1;
         if (r % 2 == 1) {
             step = 2;  // Odds in this row, we skip those
         }

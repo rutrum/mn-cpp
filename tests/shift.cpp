@@ -28,14 +28,14 @@ int main() {
 
     cout << s.count() << endl;
 
-    int deltas[max + 1];
+    uint32_t deltas[max + 1];
     for (auto i = 0; i <= max; i++) {
         deltas[i] = -1;
     }
 
     cout << "Multipliers" << endl;
     // Use multipliers to find classes of delta values
-    for (int m = 20; m <= 1000; m++) {
+    for (int m = 2; m <= 1000; m++) {
         uint32_t m_deltas[max / m + 1];
         for (auto i = 0; i <= max / m; i++) {
             m_deltas[i] = -1;
@@ -47,19 +47,6 @@ int main() {
             }
         }
     }
-
-    /*
-    int w = 60;
-    auto classes = classify_coords(w);
-
-    for (int n = 1; n <= max; n++) {
-        if (deltas[n] != -1) {
-            Factors f = Factors(n);
-            int modw = delta_modulo_w(f, w, classes);
-            assert_delta_n(modw, deltas[n], n);
-        }
-    }
-    */
 
     cout << "Check" << endl;
     for (auto n = 1; n <= max; n++) {

@@ -15,20 +15,14 @@ int main(int argc, char* argv[]) {
     if (argc < 2) { return 1; }
 
     uint64_t max = 4294967296;
-    int m = strtol(argv[1], NULL, 10);
+    uint32_t m = strtol(argv[1], NULL, 10);
 
-    //cout << "Init sieve" << endl;
     Sieve s = Sieve(max / m + 1);
-    //cout << "sieve done" << endl;
 
-    //cout << "Attempting to allocate " << max / m + 1 << endl;
     uint32_t* deltas = new uint32_t[max / m + 1];
-    //cout << "Deltas allocated" << endl;
     for (uint64_t i = 0; i <= max / m; i++) {
         deltas[i] = -1;
     }
-    //cout << "-1 assigned allocated" << endl;
-
 
     // Use multipliers to find classes of delta values
     deltas_dynamic_shift(m, max, s, deltas);

@@ -3,6 +3,12 @@ test TEST:
     g++ tests/{{ TEST }}.cpp -o bin/test -O3
     bin/test
     @echo "Success!"
+
+alias tm := test-multiplier
+test-multiplier MULTIPLIER:
+    g++ tests/alg2_alg3.cpp -o bin/test -O3
+    bin/test {{ MULTIPLIER }}
+    @echo "Success!"
     
 alias b := bench
 bench BENCH START END:
@@ -50,5 +56,8 @@ compile:
        g++ $filename -c -o /tmp/a.out
     done
     for filename in bench/*.cpp; do
+       g++ $filename -c -o /tmp/a.out
+    done
+    for filename in multipliers/*.cpp; do
        g++ $filename -c -o /tmp/a.out
     done

@@ -1,6 +1,6 @@
 // Algorithm 3
 // Records in visited the products between last and next lattices
-void visit_between_shapes(uint32_t &hamming, boost::dynamic_bitset<> &visited, Factors last, Factors next) {
+void visit_between_shapes(uint32_t &hamming, boost::dynamic_bitset<> &visited, const Factors& last, const Factors& next) {
     for (uint32_t r = 1, t = 0; r < last.row_bound(); r++) {
         
         while (r >= last.row_bound_on_pair(t)) {
@@ -57,7 +57,7 @@ void deltas_shift(uint32_t m, uint64_t max, Sieve sieve, uint32_t deltas[]) {
     // Continue until we max out
     while (next_prime > 0 && next_prime * m <= max) {
 
-        last = next;
+        last = move(next);
         next = mf.stretch_lattice(next_prime);
 
         visit_between_shapes(hamming, visited, last, next);

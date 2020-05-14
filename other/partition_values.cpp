@@ -51,8 +51,8 @@ int main() {
             // cross off the values in visited
 
             m_file << k << endl;
-            for (uint64_t p = hp; p * hp <= max; p = s.next_prime(p)) {
-                visited[hp * p] = true;
+            for (uint64_t p = m; p * m <= max; p = s.next_prime(p)) {
+                visited[m * p] = true;
             }
 
         }

@@ -5,7 +5,7 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
         return 0;
     }
 
-    int first_row_max = f.col_bound_on_pair(1) - 1;
+    uint32_t first_row_max = f.col_bound_on_pair(1) - 1;
 
     // The number of free integers from first row
     uint64_t total_free = first_row_max;
@@ -21,7 +21,7 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
 
         // r iterates over rows
         // t iterates over pairs
-        for (int r = 2, t = 1; r < f.row_bound(); r++) {
+        for (uint32_t r = 2, t = 1; r < f.row_bound(); r++) {
 
             // If row has maxed out pair's shape, go to next pair
             if (r == f.row_bound_on_pair(t)) {
@@ -42,7 +42,7 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
             uint64_t upper_segment_bound = end;
             uint64_t shape_bound = f.col_bound_on_pair(t) * r;
 
-            int64_t p_end = upper_segment_bound;
+            uint64_t p_end = upper_segment_bound;
             if (p_end > shape_bound) p_end = shape_bound; 
 
             // Slow intuitive way
