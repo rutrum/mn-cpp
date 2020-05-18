@@ -25,12 +25,14 @@ int main() {
 
     HighestPrimeSieve s = HighestPrimeSieve(max);
     
-    for (uint64_t k = 1; k * 47 < max; k++) {
+    uint64_t k;
+    for (k = 1; k * 47 < max; k++) {
 
         if (visited[k] == 1) continue;
 
         // Find multipliers
         uint64_t m = k / s.highest_prime(k);
+        if (k == 4) cout << m << endl;
 
         uint64_t total = 0;
         for (uint64_t p = 1; p * m <= max && total < thresh; p = s.next_prime(p)) {
@@ -58,11 +60,18 @@ int main() {
             m_file << k << endl;
             m_file.close();
 
-            for (uint64_t p = s.next_prime(k - 1); p != 0 && p * m <= max; p = s.next_prime(p)) {
-                visited[m * p] = true;
+            for (uint64_t p = s.highest_prime(k); p != 0 && p * m <= max; p = s.next_prime(p)) {
+                visited[m * p] = 1;
             }
-
         }
     }
+
+    alg2_file;
+    alg2_file.open("results/alg2_values.txt", fstream::app);
+    for (; k < max; k++) {
+        if (visited[k] == 0)
+            alg2_file << k << endl;
+    }
+    alg2_file.close();
 
 }
