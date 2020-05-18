@@ -13,7 +13,7 @@ int main() {
     uint64_t max = 1048576; //4294967296;
     auto visited = boost::dynamic_bitset<>(max + 1);
 
-    int thresh = 15;
+    int thresh = 10;
 
     // Wipe the files
     ofstream alg2_file;
@@ -24,9 +24,14 @@ int main() {
     m_file.close();
 
     HighestPrimeSieve s = HighestPrimeSieve(max);
+
+    int p_thresh = 1;
+    for (int i = 0; i < thresh; i++) {
+        p_thresh = s.next_prime(p_thresh);
+    }
     
     uint64_t k;
-    for (k = 1; k * 47 < max; k++) {
+    for (k = 1; k * p_thresh < max; k++) {
 
         if (visited[k] == 1) continue;
 
