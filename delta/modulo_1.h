@@ -13,6 +13,7 @@ int delta_modulo_1(Factors f) {
     // Now position 0 refers to first row max + 1, the smallest 
     // product we will calculate
     boost::dynamic_bitset<> visited(f.product_bound() - first_row_max);
+    cout << "visited size " << visited.size() << endl;
 
     // r iterates over rows
     // t iterates over pairs
@@ -39,9 +40,11 @@ int delta_modulo_1(Factors f) {
             }
         */
         for (int i = col_lb * r - first_row_max; 
-            i < f.col_bound_on_pair(t) * r - first_row_max; 
+            i < (int)f.col_bound_on_pair(t) * r - first_row_max; 
             i += r
         ) {
+            if (i < 0) cout << i;
+            if (f.n == 50 && i < 100) cout << i << endl;
             visited[i] = true;
         }
     }

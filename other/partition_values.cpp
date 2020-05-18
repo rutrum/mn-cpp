@@ -10,19 +10,22 @@
 using namespace std;
 
 int main() {
-    uint64_t max = 4294967296;
+    uint64_t max = 1048576; //4294967296;
     auto visited = boost::dynamic_bitset<>(max + 1);
 
     int thresh = 15;
 
-    fstream m_file;
-    m_file.open("results/m_values.txt");
-    fstream alg2_file;
+    // Wipe the files
+    ofstream alg2_file;
     alg2_file.open("results/alg2_values.txt");
+    alg2_file.close();
+    ofstream m_file;
+    m_file.open("results/m_values.txt");
+    m_file.close();
 
     HighestPrimeSieve s = HighestPrimeSieve(max);
     
-    for (uint64_t k = 1; k < max; k++) {
+    for (uint64_t k = 1; k * 47 < max; k++) {
 
         if (visited[k] == 1) continue;
 
@@ -39,21 +42,27 @@ int main() {
             // Not enough values to be worth of being a multiplier
             // Add these values to a list of values to be computed
             // using algorithm 2
+            
+            ofstream alg2_file;
+            alg2_file.open("results/alg2_values.txt", fstream::app);
             alg2_file << k << endl;
+            alg2_file.close();
             visited[k] = 1;
 
         } else {
             // Good multiplier!  Let's write k to file and
             // cross off the values in visited
 
+            ofstream m_file;
+            m_file.open("results/m_values.txt", fstream::app);
             m_file << k << endl;
-            for (uint64_t p = m; p * m <= max; p = s.next_prime(p)) {
+            m_file.close();
+
+            for (uint64_t p = s.next_prime(k - 1); p != 0 && p * m <= max; p = s.next_prime(p)) {
                 visited[m * p] = true;
             }
 
         }
     }
 
-    m_file.close();
-    alg2_file.close();
 }

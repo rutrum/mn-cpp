@@ -36,7 +36,15 @@ public:
     // Returns the next prime greater than n
     // returns 0 if next prime isn't within sieve.
     int next_prime(uint32_t n) {
-        for (uint32_t i = n + 1; i < primes.size(); i++) {
+        uint32_t start = n;
+        if (n == 0) return 1;
+        if (n == 1) return 2;
+        if (start % 2 == 0 && start + 1 < primes.size()) {
+            // Check if next value is prime, otherwise
+            start += 1;
+            if (primes[start] == 0) { return start; }
+        }
+        for (uint32_t i = start + 2; i < primes.size(); i += 2) {
             if (primes[i] == 0) { return i; }
         }
         return 0;
@@ -45,7 +53,8 @@ public:
 private:
 
     void init_sieve() {
-        for (uint32_t i = 2; i < primes.size(); i++) {
+        primes[1] = 1;
+        for (uint32_t i = 2; 2 * i < primes.size(); i++) {
             if (primes[i] == 0) {
                 for (uint32_t j = 2 * i; j < primes.size(); j += i) {
                     primes[j] = i;

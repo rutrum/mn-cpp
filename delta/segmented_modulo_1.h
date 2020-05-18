@@ -55,7 +55,7 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
             // Faster way
             // i is signed (as well as p_end and first_row_max) because of the substraction
             // p_end - first_row_max overflows positive when you shouldnt
-            for (int64_t i = p_start - first_row_max; i < p_end - first_row_max; i += r) {
+            for (int64_t i = p_start - first_row_max; i < (int64_t)p_end - first_row_max; i += r) {
                 visited[i] = true;
             }
 

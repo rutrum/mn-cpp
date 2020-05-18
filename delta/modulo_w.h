@@ -76,7 +76,7 @@ int delta_modulo_w(Factors f, int w, vector<vector<pair<int,int>>> classes) {
                 int offset = (start * r - lower_bounds[m]) % w;
 
                 for (int i = (start * r - lower_bounds[m]) / w; 
-                    i < (f.col_bound_on_pair(t) * r - lower_bounds[m] - offset + w - 1) / w; 
+                    i < ((int)f.col_bound_on_pair(t) * r - lower_bounds[m] - offset + w - 1) / w; 
                     i += r 
                 ) {
                     visited[i] = true;
