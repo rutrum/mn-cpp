@@ -10,8 +10,8 @@
 using namespace std;
 
 int main() {
-    //uint64_t max = 4294967296; //2^32
-    uint64_t max = 2147483648; //2^31
+    uint64_t max = 4294967296; //2^32
+    //uint64_t max = 2147483648; //2^31
     //uint64_t max = 1073741824; //2^30
     //uint64_t max = 268435456; //2^28
     //uint64_t max = 33554432; //2^25
