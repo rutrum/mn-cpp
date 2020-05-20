@@ -53,6 +53,12 @@ int main() {
             ofstream alg2_file;
             alg2_file.open("results/alg2_values.txt", fstream::app);
             alg2_file << k << endl;
+            for (uint64_t p = s.highest_prime(k); p != 0 && p * m <= max; p = s.next_prime(p)) {
+                if (visited[m * p] == 0) {
+                    alg2_file << m * p << endl;
+                    visited[m * p] = 1;
+                }
+            }
             alg2_file.close();
             visited[k] = 1;
 
@@ -65,15 +71,9 @@ int main() {
             m_file << m << " " << s.highest_prime(k) << endl;
             m_file.close();
 
-            ofstream alg2_file;
-            alg2_file.open("results/alg2_values.txt", fstream::app);
             for (uint64_t p = s.highest_prime(k); p != 0 && p * m <= max; p = s.next_prime(p)) {
-                if (visited[m * p] == 0) {
-                    alg2_file << m * p << endl;
-                    visited[m * p] = 1;
-                }
+                visited[m * p] = 1;
             }
-            alg2_file.close();
         }
     }
 
