@@ -47,7 +47,7 @@ alias r := run
 # Compiles and runs a cpp file
 run PATH:
     g++ {{ PATH }} -o bin/run -O3
-    bin/run
+    /bin/time -p bin/run
 
 # Compiles every benchmark and test
 compile:

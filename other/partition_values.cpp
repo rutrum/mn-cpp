@@ -10,10 +10,15 @@
 using namespace std;
 
 int main() {
-    uint64_t max = 1048576; //4294967296;
+    //uint64_t max = 4294967296; //2^32
+    uint64_t max = 2147483648; //2^31
+    //uint64_t max = 1073741824; //2^30
+    //uint64_t max = 268435456; //2^28
+    //uint64_t max = 33554432; //2^25
+    //uint64_t max = 1048576; //2^20
     auto visited = boost::dynamic_bitset<>(max + 1);
 
-    int thresh = 0;
+    int thresh = 10;
 
     // Wipe the files
     ofstream alg2_file;
@@ -52,7 +57,6 @@ int main() {
             
             ofstream alg2_file;
             alg2_file.open("results/alg2_values.txt", fstream::app);
-            alg2_file << k << endl;
             for (uint64_t p = s.highest_prime(k); p != 0 && p * m <= max; p = s.next_prime(p)) {
                 if (visited[m * p] == 0) {
                     alg2_file << m * p << endl;
@@ -60,7 +64,6 @@ int main() {
                 }
             }
             alg2_file.close();
-            visited[k] = 1;
 
         } else {
             // Good multiplier!  Let's write k to file and
