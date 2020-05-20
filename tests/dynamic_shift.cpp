@@ -22,25 +22,20 @@ int main() {
     }
 
     int max = 100000; 
-    //int max = 524288; 
 
     Sieve s = Sieve(max);
-
-    cout << s.count() << endl;
 
     int deltas[max + 1];
     for (auto i = 0; i <= max; i++) {
         deltas[i] = -1;
     }
 
-    cout << "Multipliers" << endl;
-    // Use multipliers to find classes of delta values
     for (int m = 2; m <= 1000; m++) {
         uint32_t m_deltas[max / m + 1];
         for (auto i = 0; i <= max / m; i++) {
             m_deltas[i] = -1;
         }
-        deltas_dynamic_shift(m, max, s, m_deltas);
+        deltas_dynamic_shift(m, 7, max, s, m_deltas);
         for (auto i = 0; i <= max / m; i++) {
             if (m_deltas[i] != -1) {
                 deltas[m * i] = m_deltas[i];
@@ -48,7 +43,6 @@ int main() {
         }
     }
 
-    cout << "Check" << endl;
     for (auto n = 1; n <= max; n++) {
         if (deltas[n] != -1) {
             assert_delta_n(expected[n], deltas[n], n);

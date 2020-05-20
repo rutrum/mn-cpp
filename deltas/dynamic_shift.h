@@ -45,24 +45,24 @@ void visit_between_shapes_dynamic(uint32_t &hamming, boost::dynamic_bitset<> &vi
 }
 
 // Fails when m = 0 because of the way primes are fetched
-void deltas_dynamic_shift(uint32_t m, uint64_t max, Sieve sieve, uint32_t deltas[]) {
+void deltas_dynamic_shift(uint32_t m, uint32_t p, uint64_t max, Sieve sieve, uint32_t deltas[]) {
 
     boost::dynamic_bitset<> visited(max + 1);
     
-    // Find the shape of m and its initial delta(m) value
     uint64_t segment_size = 2000000;
-    uint32_t hamming = delta_segmented_naive_save(Factors(m), segment_size, visited);
-    //uint32_t hamming = delta_naive_save(Factors(m), visited);
-    deltas[1] = hamming;
-    
-    // Set default values for first iteration of loop
-    uint32_t last_prime = 1;
-    uint32_t next_prime = 2;
 
     Factors mf = Factors::all_pairs(m);
+    Factors mfp = Factors(m*p);
 
-    Factors next = mf;
-    Factors last = mf;
+    uint32_t hamming = delta_segmented_naive_save(mfp, segment_size, visited);
+    deltas[p] = hamming;
+    
+    // Set default values for first iteration of loop
+    uint32_t last_prime = p;
+    uint32_t next_prime = sieve.next_prime(p);
+
+    Factors last = mfp;
+    Factors next = mfp;
 
     // Continue until we max out
     while (next_prime > 0 && next_prime * m <= max) {

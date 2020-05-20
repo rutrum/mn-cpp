@@ -13,7 +13,7 @@ int main() {
     uint64_t max = 1048576; //4294967296;
     auto visited = boost::dynamic_bitset<>(max + 1);
 
-    int thresh = 10;
+    int thresh = 0;
 
     // Wipe the files
     ofstream alg2_file;
@@ -29,6 +29,7 @@ int main() {
     for (int i = 0; i < thresh; i++) {
         p_thresh = s.next_prime(p_thresh);
     }
+    cout << p_thresh << endl;
     
     uint64_t k;
     for (k = 1; k * p_thresh < max; k++) {
@@ -37,7 +38,6 @@ int main() {
 
         // Find multipliers
         uint64_t m = k / s.highest_prime(k);
-        if (k == 4) cout << m << endl;
 
         uint64_t total = 0;
         for (uint64_t p = 1; p * m <= max && total < thresh; p = s.next_prime(p)) {
@@ -62,12 +62,18 @@ int main() {
 
             ofstream m_file;
             m_file.open("results/m_values.txt", fstream::app);
-            m_file << k << endl;
+            m_file << m << " " << s.highest_prime(k) << endl;
             m_file.close();
 
+            ofstream alg2_file;
+            alg2_file.open("results/alg2_values.txt", fstream::app);
             for (uint64_t p = s.highest_prime(k); p != 0 && p * m <= max; p = s.next_prime(p)) {
-                visited[m * p] = 1;
+                if (visited[m * p] == 0) {
+                    alg2_file << m * p << endl;
+                    visited[m * p] = 1;
+                }
             }
+            alg2_file.close();
         }
     }
 
