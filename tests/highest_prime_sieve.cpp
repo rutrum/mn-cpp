@@ -12,8 +12,4 @@ int main() {
         cout << "Expected 9593, got " << s.count() << endl;
         return 1;
     }
-
-    for (int p = 1; p < 100; p = s.next_prime(p)) {
-        cout << p << endl;
-    }
 }

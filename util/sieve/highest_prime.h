@@ -53,7 +53,7 @@ public:
 private:
 
     void init_sieve() {
-        primes[1] = 1;
+        primes[0] = 1;
         for (uint32_t i = 2; 2 * i < primes.size(); i++) {
             if (primes[i] == 0) {
                 for (uint64_t j = 2 * i; j < primes.size(); j += i) {
