@@ -18,7 +18,7 @@ int main() {
     //uint64_t max = 1048576; //2^20
     auto visited = boost::dynamic_bitset<>(max + 1);
 
-    int thresh = 10;
+    uint64_t thresh = 10;
 
     // Wipe the files
     ofstream alg2_file;
