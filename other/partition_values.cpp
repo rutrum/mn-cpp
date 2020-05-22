@@ -10,11 +10,11 @@
 using namespace std;
 
 int main() {
-    uint64_t max = 4294967296; //2^32
+    //uint64_t max = 4294967296; //2^32
     //uint64_t max = 2147483648; //2^31
     //uint64_t max = 1073741824; //2^30
     //uint64_t max = 268435456; //2^28
-    //uint64_t max = 33554432; //2^25
+    uint64_t max = 33554432; //2^25
     //uint64_t max = 1048576; //2^20
     auto visited = boost::dynamic_bitset<>(max + 1);
 
@@ -30,14 +30,15 @@ int main() {
 
     HighestPrimeSieve s = HighestPrimeSieve(max);
 
-    int p_thresh = 1;
-    for (int i = 0; i < thresh; i++) {
+    uint64_t p_thresh = 1;
+    for (uint64_t i = 0; i < thresh; i++) {
         p_thresh = s.next_prime(p_thresh);
     }
     cout << p_thresh << endl;
     
     uint64_t k;
-    for (k = 1; k * p_thresh < max; k++) {
+    for (k = 1; k < max; k++) {
+    //for (k = 1; k * p_thresh < max; k++) {
 
         if (visited[k] == 1) continue;
 

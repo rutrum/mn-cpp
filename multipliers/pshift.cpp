@@ -167,6 +167,6 @@ uint32_t* run_on_m(int my_rank, uint32_t m, uint64_t max, Sieve s) {
         deltas[i] = -1;
     }
 
-    deltas_dynamic_shift(m, max, s, deltas);
+    deltas_dynamic_shift(m, 1, max, s, deltas);
     return deltas;
 }
