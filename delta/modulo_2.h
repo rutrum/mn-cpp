@@ -46,9 +46,9 @@ uint32_t delta_modulo_2(Factors f) {
         }
 
         // The slow intuitive way:
-            for (int p = p_start; p < (int64_t)p_end; p += step * r) {
-                cout << p << endl;
-                int i = (p - evens_max) / 2;     // index after translation and scaling
+            for (uint64_t p = p_start; p < (int64_t)p_end; p += step * r) {
+                //cout << p << endl;
+                uint64_t i = (p - evens_max) / 2;     // index after translation and scaling
                 evens_visited[i] = true;
             }
         /*

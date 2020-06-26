@@ -1,8 +1,12 @@
+compile-catch:
+    g++ tests/catch.cpp -c -o bin/catch.o
+
+compile-test-suite:
+    g++ bin/catch.o tests/suite.cpp -o bin/test -O3
+
 alias t := test
-test TEST:
-    g++ tests/{{ TEST }}.cpp -o bin/test -O3
-    bin/test
-    @echo "Success!"
+test *TAGS: compile-test-suite
+    bin/test {{ TAGS }}
 
 alias tm := test-multiplier
 test-multiplier MULTIPLIER:

@@ -12,7 +12,7 @@ public:
     }
 
     uint64_t count() {
-        return primes.size() - primes.count();
+        return primes.size() - primes.count() + 1;
     }
 
     void print() {

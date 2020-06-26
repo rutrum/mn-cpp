@@ -13,7 +13,7 @@ public:
     Factors(uint32_t n) {
         this->n = n;
         pairs.push_back(pair<uint32_t, uint32_t>(1, n));
-        for (uint32_t i = 2; i * i <= n; i++) {
+        for (uint64_t i = 2; i * i <= n; i++) {
             if (n % i == 0) {
                 pairs.push_back(pair<uint32_t, uint32_t>(i, n / i));
             }
@@ -109,7 +109,7 @@ public:
 
     // Maybe there's a better way, maybe there isn't
     uint32_t highest_prime() const {
-        for (uint32_t t = pairs.size() - 1; t >= 0; t--) {
+        for (int32_t t = pairs.size() - 1; t >= 0; t--) {
             uint32_t p = pairs[t].second;
             bool is_prime = true;
             for (uint32_t i = 2; i * i <= p; i++) {
@@ -160,8 +160,9 @@ public:
         }
 
         // Now loop backwards in case the rest of the shape is needed,
-        // when the row < col
-        for (uint32_t t = pairs.size() - 1; t >= 0 && r <= total; t--) {
+        // when the row < col.  Definitely dont make this pointer
+        // t unsigned (you're decrementing it idiot)
+        for (int32_t t = pairs.size() - 1; t >= 0 && r <= total; t--) {
             // If r hasn't reached the row bound on the tth pair
             if (r < pairs[t].second) {
                 maxes[r] = (pairs[t].first - 1) * r;
@@ -180,9 +181,9 @@ public:
     }
 
     // Given a modulus N, find the lower bound of each
-    // modulus.  That is, the last uint32_teger in each modulo class
+    // modulus.  That is, the last integer in each modulo class
     // that is "free".
-    vector<uint32_t> mod_class_lower_bounds(uint32_t N) const {
+    vector<uint32_t> mod_class_lower_bounds(uint32_t N) {
         auto maxes = this->row_maxes(N);
 
         vector<uint32_t> lower_bounds(N);

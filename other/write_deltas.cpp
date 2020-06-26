@@ -4,8 +4,8 @@
 #include <fstream>
 
 #include "../util/factors.h"
-#include "../util/soe.h"
-#include "../delta/moduloN.h"
+#include "../util/sieve/sieve.h"
+#include "../delta/modulo_w.h"
 
 using namespace std;
 
@@ -15,10 +15,11 @@ int main() {
     auto classes = classify_coords(N);
 
     ofstream out;
-    out.open("delta_100000.txt");
-    for (int i = 1; i <= 100000; i++) {
+    out.open("delta_u32.txt");
+    for (uint64_t i = 3221225472; i <= 3221225482; i++) { // broken for these values
+        cout << "i: " << i << endl;
         Factors f = Factors(i);
-        int delta = delta_moduloN(f, N, classes);
+        uint64_t delta = delta_modulo_w(f, N, classes);
         sum += i - delta;
         out << delta << endl;
     }
