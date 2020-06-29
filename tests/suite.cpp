@@ -23,11 +23,39 @@
 #include "../deltas/shift.h"
 #include "../deltas/dynamic_shift.h"
 
+using namespace std;
+
+vector<uint32_t> delta_100000() {
+    ifstream in;
+    in.open("results/delta_100000.txt");
+
+    vector<uint32_t> deltas;
+    deltas.resize(100001);
+
+    for (int i = 1; i <= 100000; i++) {
+        in >> deltas[i];
+    }
+
+    return deltas;
+}
+
+vector<uint32_t> delta_u32() {
+    ifstream in;
+    in.open("results/delta_u32.txt");
+
+    vector<uint32_t> deltas;
+    deltas.resize(43);
+
+    for (int i = 1; i <= 42; i++) {
+        in >> deltas[i];
+    }
+
+    return deltas;
+}
+
 #include "sieve.h"
 #include "delta.h"
 #include "deltas.h"
-
-using namespace std;
 
 void check_factor(Factors f) {
     CHECK( f.n > 0 );
@@ -56,4 +84,3 @@ TEST_CASE( "factor" ) {
         check_factor(f);
     }
 }
-

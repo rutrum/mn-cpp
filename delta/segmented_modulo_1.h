@@ -1,4 +1,4 @@
-int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
+uint32_t delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
 
     // prime check...may remove, but will segfault on primes
     if (f.is_prime()) {
@@ -13,7 +13,6 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
     // Now position 0 refers to first row max + 1, the smallest 
     // product we will calculate
     boost::dynamic_bitset<> visited(f.product_bound() - first_row_max);
-    //int sum = 0;
 
     for (uint64_t start = first_row_max; start < f.product_bound(); start += segment_size) {
         uint64_t end = start + segment_size;
@@ -55,8 +54,10 @@ int delta_segmented_modulo_1(Factors f, uint64_t segment_size) {
             // Faster way
             // i is signed (as well as p_end and first_row_max) because of the substraction
             // p_end - first_row_max overflows positive when you shouldnt
-            for (int64_t i = p_start - first_row_max; i < (int64_t)p_end - first_row_max; i += r) {
-                visited[i] = true;
+            if (p_end > first_row_max && p_start > first_row_max) {
+                for (uint64_t i = p_start - first_row_max; i < p_end - first_row_max; i += r) {
+                    visited[i] = true;
+                }
             }
 
         }

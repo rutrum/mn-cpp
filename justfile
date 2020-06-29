@@ -1,12 +1,19 @@
+# Compile the catch framework
 compile-catch:
     g++ tests/catch.cpp -c -o bin/catch.o
 
+# Compile the test suite
 compile-test-suite:
     g++ bin/catch.o tests/suite.cpp -o bin/test -O3
 
+# Test using catch framework
 alias t := test
 test *TAGS: compile-test-suite
     bin/test {{ TAGS }}
+
+# Delete executables
+clean:
+    trash bin/*
 
 alias tm := test-multiplier
 test-multiplier MULTIPLIER:
@@ -43,12 +50,7 @@ par-multiplier NP:
     mpicxx multipliers/pshift.cpp -o bin/pmultiplier -O3
     mpirun -q -np {{ NP }} bin/pmultiplier
 
-clean:
-    trash bin/*
-
-alias r := run
-
-# Compiles and runs a cpp file
+# Compiles, runs and times a cpp file
 run PATH:
     g++ {{ PATH }} -o bin/run -O3
     /bin/time -p bin/run

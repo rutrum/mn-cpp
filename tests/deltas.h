@@ -1,11 +1,5 @@
 TEST_CASE( "shift", "[deltas]" ) {
-    ifstream in;
-    in.open("results/delta_100000.txt");
-
-    int expected[100001];
-    for (int i = 1; i <= 100000; i++) {
-        in >> expected[i];
-    }
+    auto expected = delta_100000();
 
     int max = 100000; 
     Sieve s = Sieve(max);
@@ -34,18 +28,10 @@ TEST_CASE( "shift", "[deltas]" ) {
             CHECK(expected[n] == deltas[n]);
         }
     }
-
-    in.close();
 }
 
 TEST_CASE( "dynamic_shift", "[deltas]" ) {
-    ifstream in;
-    in.open("results/delta_100000.txt");
-
-    int expected[100001];
-    for (int i = 1; i <= 100000; i++) {
-        in >> expected[i];
-    }
+    auto expected = delta_100000();
 
     int max = 100000; 
     Sieve s = Sieve(max);
@@ -74,6 +60,4 @@ TEST_CASE( "dynamic_shift", "[deltas]" ) {
             CHECK(expected[n] == deltas[n]);
         }
     }
-
-    in.close();
 }

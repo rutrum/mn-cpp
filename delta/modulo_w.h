@@ -12,7 +12,7 @@ vector<vector<pair<int, int>>> classify_coords(int w) {
     return classes;
 }
 
-int delta_modulo_w(Factors f, int w, vector<vector<pair<int,int>>> classes) {
+uint64_t delta_modulo_w(Factors f, int w, vector<vector<pair<int,int>>> classes) {
     uint64_t total_visited = 0;
 
     // Determine coordinates based on the modulus and then
@@ -52,17 +52,17 @@ int delta_modulo_w(Factors f, int w, vector<vector<pair<int,int>>> classes) {
                 while (start < r || start <= lower_bounds[m] / r) start += w;
 
                 // The slow intuitive way:
+                /*
                     for (uint64_t c = start; c < f.col_bound_on_pair(t); c += w) {
                         int p = c * r;                      // product
                         int i = (p - lower_bounds[m]) / w;  // index after translation and scaling
                         visited[i] = true;
                     }
-                /*
-                    for (int p = start * r; p < f.col_bound_on_pair(t) * r; p += w * r) {
-                        int i = (p - lower_bounds[m]) / w;  // index after translation and scaling
+                */
+                    for (uint64_t p = start * r; p < f.col_bound_on_pair(t) * r; p += w * r) {
+                        uint64_t i = (p - lower_bounds[m]) / w;  // index after translation and scaling
                         visited[i] = true;
                     }
-                */
                 /*
                     for (int p = start * r - lower_bounds[m]; 
                         p < f.col_bound_on_pair(t) * r - lower_bounds[m]; 
