@@ -47,7 +47,7 @@ TEST_CASE( "dynamic_shift", "[deltas]" ) {
         for (auto i = 0; i <= max / m; i++) {
             m_deltas[i] = -1;
         }
-        deltas_dynamic_shift(m, 7, max, s, m_deltas);
+        deltas_dynamic_shift(m, 1, max, s, m_deltas);
         for (auto i = 0; i <= max / m; i++) {
             if (m_deltas[i] != -1) {
                 deltas[m * i] = m_deltas[i];
