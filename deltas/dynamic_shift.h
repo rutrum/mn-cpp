@@ -78,38 +78,3 @@ void deltas_dynamic_shift(uint32_t m, uint32_t p, uint64_t max, Sieve sieve, uin
         next_prime = sieve.next_prime(last_prime);
     }
 }
-
-// Use trial division instead of "scaling" m
-void deltas_dynamic_shift_trial(uint32_t m, uint64_t max, Sieve sieve, uint32_t deltas[]) {
-
-    boost::dynamic_bitset<> visited(max + 1);
-    
-    // Find the shape of m and its initial delta(m) value
-    uint64_t segment_size = 2000000;
-    uint32_t hamming = delta_segmented_naive_save(Factors(m), segment_size, visited);
-    //uint32_t hamming = delta_naive_save(Factors(m), visited);
-    deltas[1] = hamming;
-    
-    // Set default values for first iteration of loop
-    uint32_t last_prime = 1;
-    uint32_t next_prime = 2;
-
-    Factors mf = Factors::all_pairs(m);
-
-    Factors next = mf;
-    Factors last = mf;
-
-    // Continue until we max out
-    while (next_prime > 0 && next_prime * m <= max) {
-
-        last = move(next);
-        next = Factors(m * next_prime);
-
-        visit_between_shapes_dynamic(hamming, visited, last, next);
-
-        deltas[next_prime] = hamming;
-
-        last_prime = next_prime;
-        next_prime = sieve.next_prime(last_prime);
-    }
-}

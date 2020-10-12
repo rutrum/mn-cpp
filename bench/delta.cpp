@@ -57,5 +57,5 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    cout << calculated << endl;
+    cout << "delta(n): " << calculated << endl;
 }

@@ -42,8 +42,6 @@ void deltas_shift(uint32_t m, uint64_t max, Sieve sieve, uint32_t deltas[]) {
     
     // Find the shape of m and its initial delta(m) value
     Factors mf = Factors::all_pairs(m);
-    //uint64_t segment_size = 2000000;
-    //uint32_t hamming = delta_segmented_naive_save(mf, segment_size, visited);
     uint32_t hamming = delta_naive_save(mf, visited);
     deltas[1] = hamming;
     

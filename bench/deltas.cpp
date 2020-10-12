@@ -78,5 +78,5 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    cout << sum << endl;
+    cout << "sum(n-delta(n)): " << sum << endl;
 }

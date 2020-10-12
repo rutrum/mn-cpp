@@ -1,3 +1,6 @@
+# -------
+# TESTING
+
 # Compile the catch framework
 compile-catch:
     g++ tests/catch.cpp -c -o bin/catch.o
@@ -10,6 +13,9 @@ compile-test-suite:
 alias t := test
 test *TAGS: compile-test-suite
     bin/test {{ TAGS }}
+
+# ------------
+# BENCHMARKING
     
 # Time an individual delta computation
 bench-delta ALG N:
@@ -25,6 +31,9 @@ bench-deltas ALG START END:
 bench-multiplier ALG MULTIPLIER END:
     g++ bench/multiplier.cpp -o bin/bench -O3
     time -p bin/bench {{ ALG }} {{ MULTIPLIER }} {{ END }}
+
+# --------------
+# OTHER COMMANDS
 
 # Delete executables
 clean:

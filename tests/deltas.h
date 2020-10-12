@@ -30,6 +30,27 @@ TEST_CASE( "shift", "[deltas]" ) {
     }
 }
 
+TEST_CASE( "shift-big", "[deltas][big]" ) {
+    auto expected = delta_u32();
+
+    uint64_t max = 4294967296; 
+    uint32_t m = 100000000;
+
+    Sieve s = Sieve(max / m);
+
+    uint32_t* deltas = new uint32_t[max / m + 1];
+    for (uint64_t i = 0; i <= max / m; i++) {
+        deltas[i] = -1;
+    }
+    deltas_shift(m, max, s, deltas);
+
+    for (auto p = 1; p != 0; p = s.next_prime(p)) {
+        CHECK(expected[p] == deltas[p]);
+    }
+
+    delete[] deltas;
+}
+
 TEST_CASE( "dynamic_shift", "[deltas]" ) {
     auto expected = delta_100000();
 
@@ -60,4 +81,25 @@ TEST_CASE( "dynamic_shift", "[deltas]" ) {
             CHECK(expected[n] == deltas[n]);
         }
     }
+}
+
+TEST_CASE( "dynamic_shift-big", "[deltas][big]" ) {
+    auto expected = delta_u32();
+
+    uint64_t max = 4294967296; 
+    uint32_t m = 100000000;
+
+    Sieve s = Sieve(max / m);
+
+    uint32_t* deltas = new uint32_t[max / m + 1];
+    for (uint64_t i = 0; i <= max / m; i++) {
+        deltas[i] = -1;
+    }
+    deltas_dynamic_shift(m, 1, max, s, deltas);
+
+    for (auto p = 1; p != 0; p = s.next_prime(p)) {
+        CHECK(expected[p] == deltas[p]);
+    }
+
+    delete[] deltas;
 }

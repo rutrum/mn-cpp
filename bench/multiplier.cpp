@@ -21,9 +21,9 @@ int main(int argc, char* argv[]) {
     }
 
     string alg = string(argv[1]);
-    uint32_t m = strtol(argv[2], NULL, 10);
-    uint32_t start;
-    uint32_t end = strtol(argv[3], NULL, 10);
+    uint64_t m = strtol(argv[2], NULL, 10);
+    uint64_t start;
+    uint64_t end = strtol(argv[3], NULL, 10);
 
     Sieve s = Sieve(end / m + 1);
 
@@ -47,10 +47,11 @@ int main(int argc, char* argv[]) {
     for (uint64_t i = 0; i <= end / m; i++) {
         if (deltas[i] != -1) {
             total += 1;
+            cout << i << " " << deltas[i] << endl;
         }
     }
 
-    cout << total << endl;
+    cout << "Total calculated: " << total << endl;
 
     delete[] deltas;
 }
