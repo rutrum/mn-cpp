@@ -12,8 +12,8 @@
 
 using namespace std;
 
-uint32_t* run_on_m(int, uint32_t, uint64_t, Sieve);
-uint32_t* read_multipliers(uint32_t);
+uint32_t* run_on_m(int, uint32_t, uint32_t, uint64_t, Sieve);
+uint32_t* read_multipliers(uint32_t, uint32_t*);
 void write_multipliers(uint64_t, uint32_t, uint32_t*);
 
 // New compile and run commands for MPI!
@@ -39,34 +39,40 @@ int main (int argc, char * argv[]) {
         // MASTER
 
         // Read multipliers from file
-        uint32_t total_ms = 10;
-        uint32_t* ms = read_multipliers(total_ms);
+        uint32_t total_ms = 105250;
+        uint32_t* ps = new uint32_t[total_ms];
+        uint32_t* ms = read_multipliers(total_ms, ps);
 
         uint32_t current = 0;
         int less = 0; // Says if we need to expect some number less final responses
 
         // Distribute initial multiplier 
         for (int i = 1; i < p; i++) {
+            cout << current << endl;
             if (current < total_ms) {
                 uint32_t m = ms[current];
-                while (m < 17) {
+                /*
+                while (m < 0) {
                     current++;
                     if (current >= total_ms) {
-                        cout << "[M] No more!  Final send to " << status.MPI_SOURCE << endl;
+                        cout << "[M] No more!" << endl;
                         less++;
                         uint32_t m = 0;
-                        MPI_Send(&m, 1, MPI_UNSIGNED_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD);
+                        MPI_Send(&m, 1, MPI_UNSIGNED_LONG, i, 0, MPI_COMM_WORLD);
                         break;
                     }
                     m = ms[current];
                 }
+                */
                 cout << "[M] Sending " << m << " to " << i << endl;
                 MPI_Send(&m, 1, MPI_UNSIGNED_LONG, i, 0, MPI_COMM_WORLD);
+                MPI_Send(&ps[current], 1, MPI_UNSIGNED_LONG, i, 1, MPI_COMM_WORLD);
             } else {
                 // None left, send 0
                 less++;
                 uint32_t m = 0;
                 MPI_Send(&m, 1, MPI_UNSIGNED_LONG, i, 0, MPI_COMM_WORLD);
+                MPI_Send(&ps[current], 1, MPI_UNSIGNED_LONG, i, 1, MPI_COMM_WORLD);
             }
             current++;
         }
@@ -83,6 +89,7 @@ int main (int argc, char * argv[]) {
 
             uint32_t send_m = ms[current];
             MPI_Send(&send_m, 1, MPI_UNSIGNED_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD);
+            MPI_Send(&ps[current], 1, MPI_UNSIGNED_LONG, status.MPI_SOURCE, 1, MPI_COMM_WORLD);
 
             current++;
         }
@@ -96,6 +103,7 @@ int main (int argc, char * argv[]) {
             cout << "[M] Final recieve from " << status.MPI_SOURCE << endl;
             uint32_t m = 0;
             MPI_Send(&m, 1, MPI_UNSIGNED_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD);
+            MPI_Send(&m, 1, MPI_UNSIGNED_LONG, status.MPI_SOURCE, 1, MPI_COMM_WORLD);
             cout << "[M] Final send " << status.MPI_SOURCE << endl;
         }
 
@@ -107,8 +115,9 @@ int main (int argc, char * argv[]) {
         cout << "[" << my_rank << "] Initializing sieve" << endl;
 
         // Ask for first interval
-        uint32_t m;
+        uint32_t m, p;
         MPI_Recv(&m, 1, MPI_UNSIGNED_LONG, 0, 0, MPI_COMM_WORLD, &status);
+        MPI_Recv(&p, 1, MPI_UNSIGNED_LONG, 0, 1, MPI_COMM_WORLD, &status);
 
         // Keep looping through each interval
         while (m != 0) {
@@ -116,7 +125,7 @@ int main (int argc, char * argv[]) {
             cout << "[" << my_rank << "] Computing m = " << m << endl;
 
             Sieve s = Sieve(max / m + 1);
-            uint32_t* deltas = run_on_m(my_rank, m, max, s);
+            uint32_t* deltas = run_on_m(my_rank, m, p, max, s);
             write_multipliers(max, m, deltas);
             delete[] deltas;
 
@@ -138,12 +147,16 @@ int main (int argc, char * argv[]) {
     return 0;
 }
 
-uint32_t* read_multipliers(uint32_t total_ms) {
+uint32_t* read_multipliers(uint32_t total_ms, uint32_t* ps) {
     ifstream in;
-    in.open("multipliers/m2pow32.txt");
+    in.open("webstertest.txt");
     uint32_t* ms = new uint32_t[total_ms];
     for (int i = 0; i < total_ms; i++) {
-        in >> ms[i];
+        uint32_t m, p;
+        in >> m >> p;
+        ms[i] = m;
+        ps[i] = p;
+        cout << m << p << endl;
     }
     in.close();
     return ms;
@@ -161,12 +174,12 @@ void write_multipliers(uint64_t max, uint32_t m, uint32_t* deltas) {
 }
 
 
-uint32_t* run_on_m(int my_rank, uint32_t m, uint64_t max, Sieve s) {
+uint32_t* run_on_m(int my_rank, uint32_t m, uint32_t p, uint64_t max, Sieve s) {
     uint32_t* deltas = new uint32_t[max / m + 1];
     for (uint64_t i = 0; i <= max / m; i++) {
         deltas[i] = -1;
     }
 
-    deltas_dynamic_shift(m, 1, max, s, deltas);
+    deltas_dynamic_shift(m, p, max, s, deltas);
     return deltas;
 }
